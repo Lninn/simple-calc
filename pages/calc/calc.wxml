@@ -1,0 +1,16 @@
+<!--pages/calc/calc.wxml-->
+<view class="container">
+  <view class='screen'>
+     <view class="history">
+      <text>{{showText}}</text>
+    </view>
+     <view class="result">
+      <text>{{result}}</text>
+    </view>
+  </view>
+  <view class='elements'>
+    <view class='cells' bindtap="onClick">
+      <button wx:for="{{keyboards}}" wx:key="unique" data-key="{{item}}">{{item}}</button>
+    </view>
+  </view>
+</view>

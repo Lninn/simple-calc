@@ -1,19 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <view class='screen'>
-     <view class="history">
-      <text>{{showText}}</text>
-    </view>
-     <view class="result">
-      <text>{{result}}</text>
-    </view>
-  </view>
-  <view class='elements'>
-    <view class='cells' bindtap="onClick">
-      <button wx:for="{{keyboards}}" wx:key="unique" data-key="{{item}}">{{item}}</button>
-    </view>
-  </view>
-  <!-- <view class="userinfo">
+  <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
@@ -22,6 +9,8 @@
   </view>
 
   <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view> -->
+    <navigator url='../calc/calc' class='navigator'>
+      <button>计算器</button>
+    </navigator>
+  </view>
 </view>

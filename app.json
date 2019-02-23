@@ -1,12 +1,13 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/calc/calc"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#4885ed",
-    "navigationBarTitleText": "简易计算机",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "测试号小程序主页",
+    "navigationBarTextStyle": "black"
   }
 }
