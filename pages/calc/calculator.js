@@ -76,6 +76,7 @@ class Calculator {
 
   calc(key) {
     let { list, result, showText, } = this
+    result = Number(result)
 
     if (this.list.length == 2) {
       let r = this.getResult()
@@ -85,9 +86,10 @@ class Calculator {
       this.showText = `${result}${key}`
     }
 
-    list[0] = this.result
+    list[0] = result
     list[1] = key
 
+    this.result = result
     this.list = list
     this.isNumber = false
   }
