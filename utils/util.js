@@ -14,24 +14,6 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-const log = console.log.bind(console)
-
-const opType = {
-  Number: 'NUMBER',
-  Dot: 'Dot',
-  Clear: 'CLEAR',
-  ClearError: 'CLEARERROR',
-  Back: 'BACK',
-  Equal: 'EQUAL',
-  Add: 'ADD',
-  Sub: 'SUB',
-  Mul: 'MUL',
-  Div: 'DIV',
-  NotNumber: 'NOTNUMBER',
-}
-
 module.exports = {
   formatTime,
-  log,
-  opType,
 }
