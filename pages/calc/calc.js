@@ -26,25 +26,34 @@ Page({
   },
 
   check: function (key) {
-    const { list, } = this.data
+    let { list, isNumber, result, } = this.data
 
     if ('.0123456789'.includes(key)) {
       this.setNum(key)
     } else if (key == 'C') {
       this.clear()
     } else if (key == 'X') {
-      util.log('后退一步')
-    } else if ('+-*/'.includes(key) && this.data.isNumber) {
-      this.calc(key)
+      this.backspace()
+    } else if ('+-*/'.includes(key)) {
+      if (isNumber || list.length == 0) {
+        this.calc(key)
+      } else {
+        // 更改运算符
+        let { list, showText, } = this.data
+        list[1] = key
+        showText = showText.replace(/[+|\-|*|\/]$/, key)
+     
+        this.setData({ list, })
+        this.setData({ showText, })
+      }
     } else if (key == '=') {
       this.equal()
     } else if (key == 'CE') {
-      util.log('清除错误')
+      this.setData({ result: 0, })
     } else if (key == '-+') {
-      util.log('取相反数')
+      result = Number(result)
+      this.setData({ result: -result, })
     }
-
-    // util.log('check list', list)
   },
 
   setNum: function(key) {
@@ -101,7 +110,22 @@ Page({
     this.setData({ isNumber: false, })
   },
 
-  clear: function() {},
+  clear: function() {
+    this.setData({ result: 0, })
+    this.setData({ showText: '', })
+    this.setData({ list: [], })
+  },
+
+  backspace: function() {
+    let { result, } = this.data
+
+    result = Number(result)
+    result = Math.floor(result / 10)
+    if (result < 1) {
+      result = 0
+    }
+    this.setData({ result, })
+  },
 
   getResult: function() {
     const { list, result, } = this.data
