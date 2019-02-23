@@ -1,0 +1,77 @@
+/**index.wxss**/
+/* .userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+} */
+
+/* calc 样式 */
+.container {
+  width: 100%;
+}
+
+/* 结果界面 */
+.screen {
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100vw;
+  height: 80px;
+  margin-bottom: 2px;
+}
+
+.screen .history {
+  display: flex;
+  height: 25px;
+  justify-content: flex-end;
+}
+
+.screen .result {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.screen .result text {
+  font-size: 2em;
+}
+
+/* 界面图标 */
+.elements {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: white;
+  box-sizing: border-box;
+  height: 60px;
+  vertical-align: middle;
+  font-size: 1em;
+  margin-bottom: 2px;
+}
+
+.cells {
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+  align-content: flex-end;
+}
+
+.cells button {
+  flex: 0 0 25%;
+}
