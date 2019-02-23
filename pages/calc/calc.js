@@ -1,10 +1,12 @@
 // pages/calc/calc.js
 const Calculator = require('calculator.js')
+const log = console.log.bind(console)
 
 Page({
   data: {
     calculator: null,
     showText: '',
+    history: [],
     result: 0,
     keyboards: [
       'CE', 'C', 'X', '/',
@@ -21,14 +23,26 @@ Page({
       return
     }
 
-    const name = Calculator.keyMap(k)
+    const o = Calculator.keyMap(k)
     const calculator = this.data.calculator
-    calculator.execute(name)
+    calculator.execute(o)
+
+    this.showData(o.name)
+  },
+
+  showData: function(name) {
+    const calculator = this.data.calculator
 
     this.setData({
       result: calculator.result,
       showText: calculator.showText,
     })
+
+    if (name == 'equal') {
+      this.setData({
+        history: calculator.history,
+      })
+    }
   },
 
   onReady: function() {

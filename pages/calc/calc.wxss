@@ -28,7 +28,6 @@
 
 /* 界面图标 */
 .elements {
-  flex: 1;
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
@@ -53,3 +52,18 @@ button {
 .cells button {
   flex: 0 0 25%;
 }
+
+/* 显示历史记录的样式 */
+/* .expression {
+  width: 100vw;
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+  flex-direction: column;
+}
+
+.expression .result {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+} */

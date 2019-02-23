@@ -1,5 +1,7 @@
 class Calculator {
   constructor() {
+    this.history = []
+
     this.setup()
   }
 
@@ -97,7 +99,13 @@ class Calculator {
   equal() {
     if (this.list.length == 2 && this.isNumber) {
 
+      const t = this.result
       this.result = this.getResult()
+      // 添加到历史记录
+      this.history.push({
+        result: this.result,
+        expression: `${this.showText}${t}`,
+      })
       this.showText = ''
       this.list = []
     }
