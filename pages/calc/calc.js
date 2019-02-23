@@ -3,15 +3,10 @@ const util = require('../../utils/util.js')
 
 Page({
   data: {
-    // 历史操作记录
-    operations: [],
-    // 前一次操作的类型
-    frontOpType: util.opType.Number,
-    frontOp: null,
-    hasDot: false,
-    // 显示操作过程
     showText: '',
     result: 0,
+    list: [],
+    isNumber: true,
     keyboards: [
       'CE', 'C', 'X', '/',
       '7', '8', '9', '*',
@@ -31,13 +26,15 @@ Page({
   },
 
   check: function (key) {
+    const { list, } = this.data
+
     if ('.0123456789'.includes(key)) {
       this.setNum(key)
     } else if (key == 'C') {
-      this.setData({ showText: '' })
+      this.clear()
     } else if (key == 'X') {
       util.log('后退一步')
-    } else if ('+-*/'.includes(key)) {
+    } else if ('+-*/'.includes(key) && this.data.isNumber) {
       this.calc(key)
     } else if (key == '=') {
       this.equal()
@@ -47,91 +44,80 @@ Page({
       util.log('取相反数')
     }
 
-    util.log('check ', key, this.data.operations)
+    // util.log('check list', list)
   },
 
-  setNum(key) {
+  setNum: function(key) {
+    const { result, list, isNumber, } = this.data
+
     if (key == '.') {
-      // 小数点
-      if (this.data.frontOpType == util.opType.Number && !this.data.hasDot) {
-        const op = this.data.result
-        this.setData({ result: `${op}${key}` })
-
-        // 记录当前操作类型
-        this.setData({ frontOpType: util.opType.Dot, })
+      if (String(result).indexOf('.') < 0) {
+        this.setData({ result: `${result}${key}`, })
       }
     } else {
-      // 数字
-      if (this.data.frontOpType == util.opType.Number || this.data.frontOpType == util.opType.Equal) {
-        if (this.data.frontOpType == util.opType.Equal) {
-          this.setData({ result: `${key}`, })
-        } else {
-          const op = this.data.result
-          const t = Number(`${op}${key}`)
-          this.setData({ result: t, })
-        }
+      if (isNumber) {
+        let t = `${result}${key}`
+        this.setData({ result: Number(t), })
       } else {
-        const ops = this.data.operations
-        ops.push(this.data.frontOp)
-        this.setData({ operations: ops, })
-        this.setData({ result: `${key}`, })
+        this.setData({ result: Number(key), })
       }
-
-      // 记录当前操作类型
-      this.setData({ frontOpType: util.opType.Number, })
     }
+
+    this.setData({ isNumber: true, })
   },
 
-  calc(key) {
-    if (this.data.operations.length == 2) {
-      let result = this.getResult()
+  calc: function(key) {
+    let { list, result, showText, } = this.data
+    let text = ''
 
-      this.setData({ showText: `${this.data.showText}${this.data.result}`, })
-      this.setData({ result: `${result}`, })
-      this.setData({ operations: [result], })
-      this.setData({ showText: `${this.data.showText}${key}`, })
+    if (list.length == 2) {
+      let r = this.getResult()
+    
+      text = `${showText}${result}${key}`
+      result = r
+      this.setData({ result: r, })
     } else {
-      if (this.data.frontOpType == util.opType.Number) {
-        const ops = this.data.operations
-        ops.push(this.data.result)
-        this.setData({ operations: ops, })
-
-        this.setData({ frontOp: `${key}` })
-        this.setData({ showText: `${this.data.result}${key}`, })
-      }
+      text = `${result}${key}`
     }
 
-    this.setData({ frontOp: key, })
-    // 记录当前操作类型
-    this.setData({ frontOpType: util.opType.NotNumber, })
+    this.setData({ showText: text, })
+    list[0] = result
+    list[1] = key
+   
+    this.setData({ list, })
+    this.setData({ isNumber: false, })
   },
 
-  equal() {
-    if (this.data.operations.length == 2 && this.data.frontOpType == util.opType.Number) {
-      let result = this.getResult()
+  equal: function() {
+    const { list, isNumber, result, } = this.data
 
+    if(list.length == 2 && isNumber) {
+
+      this.setData({ result: this.getResult(), })
       this.setData({ showText: '', })
-      this.setData({ result: `${result}`, })
-      this.setData({ operations: [], })
-      this.setData({ frontOpType: util.opType.Equal, })
+      this.setData({ list: [], })
     }
+
+    this.setData({ isNumber: false, })
   },
-  
-  getResult() {
-    let result = 0
-    const ops = this.data.operations
 
-    if (ops[1] == '+') {
-      result = Number(ops[0]) + Number(this.data.result)
-    } else if (ops[1] == '-') {
-      result = Number(ops[0]) - Number(this.data.result)
-    } else if (ops[1] == '*') {
-      result = Number(ops[0]) * Number(this.data.result)
-    } else if (ops[1] == '/') {
-      result = Number(ops[0]) / Number(this.data.result)
+  clear: function() {},
+
+  getResult: function() {
+    const { list, result, } = this.data
+    const [operands, operator] = list
+    let r = 0
+
+    if (operator == '+') {
+      r = Number(operands) + Number(result)
+    } else if (operator == '-') {
+      r = Number(operands) - Number(result)
+    } else if (operator == '*') {
+      r = Number(operands) * Number(result)
+    } else if (operator == '/') {
+      r = Number(operands) / Number(result)
     }
 
-    util.log('calc result ', result)
-    return result
+    return r
   }
 })
