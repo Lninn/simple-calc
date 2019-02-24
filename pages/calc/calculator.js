@@ -1,6 +1,8 @@
+const log = console.log.bind(console)
+
 class Calculator {
   constructor() {
-    this.history = []
+    this.records = []
 
     this.setup()
   }
@@ -14,10 +16,10 @@ class Calculator {
     number: '.0123456789',
     clearError: 'CE',
     backspace: 'X',
-    clear: 'C',
-    calc: '+-/*',
+    clear: 'AC',
+    operator: '+-/*',
     equal: '=',
-    swap: '-+',
+    history: 'H',
   }
 
   static keyMap(string) {
@@ -32,15 +34,15 @@ class Calculator {
     }
   }
 
-  execute(method) {
-    this[method.name](method.key)
-  }
-
   setup() {
     this.showText = ''
     this.result = 0
     this.list = []
     this.isNumber = true
+  }
+
+  execute(method) {
+    this[method.name](method.key)
   }
 
   number(key) {
@@ -76,35 +78,31 @@ class Calculator {
     this.result = result
   }
 
-  calc(key) {
-    let { list, result, showText, } = this
-    result = Number(result)
+  operator(key) {
+    let { list, result, showText, isNumber, } = this
 
-    if (this.list.length == 2) {
-      let r = this.getResult()
-      this.showText = `${this.showText}${result}${key}`
-      this.result = r
+    if (isNumber || list.length == 0) {
+      this.calc(key)
     } else {
-      this.showText = `${result}${key}`
+      // 更改运算符
+      list[1] = key
+      showText = showText.replace(/[+|\-|*|\/]$/, key)
+
+      this.list = list
+      this.showText = showText
     }
-
-    list[0] = result
-    list[1] = key
-
-    this.result = result
-    this.list = list
-    this.isNumber = false
   }
 
   equal() {
-    if (this.list.length == 2 && this.isNumber) {
-
+    let { list, isNumber, showText, } = this
+    if (list.length == 2 && isNumber) {
       const t = this.result
       this.result = this.getResult()
-      // 添加到历史记录
-      this.history.push({
+      // log(this.result)
+      // 添加记录
+      this.records.push({
         result: this.result,
-        expression: `${this.showText}${t}`,
+        expression: `${showText}${t}`,
       })
       this.showText = ''
       this.list = []
@@ -113,16 +111,35 @@ class Calculator {
     this.isNumber = false
   }
 
-  swap() {
-    this.result = -this.result
-  }
-
   clear() {
     this.setup()
   }
 
+  history() {}
+
+  calc(key) {
+    let { list, result, showText, } = this
+    let text = ''
+    let r = Number(result)
+
+    if (this.list.length == 2) {
+      r = this.getResult()
+      text = `${showText}${result}${key}`
+    } else {
+      text = `${result}${key}`
+    }
+
+    this.result = r
+    this.showText = text
+    list[0] = r
+    list[1] = key
+    this.list = list
+    this.isNumber = false
+  }
+
   getResult() {
     const { list, result, } = this
+    // log(list, result)
     const [operands, operator] = list
     let r = 0
 

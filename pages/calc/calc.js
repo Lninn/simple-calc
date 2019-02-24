@@ -6,14 +6,14 @@ Page({
   data: {
     calculator: null,
     showText: '',
-    history: [],
+    records: [],
     result: 0,
     keyboards: [
-      'CE', 'C', 'X', '/',
-      '7', '8', '9', '*',
-      '4', '5', '6', '-',
-      '1', '2', '3', '+',
-      '-+', '.', '0', '='
+      'CE', 'AC', 'X', 'H',
+      '7', '8', '9', '/',
+      '4', '5', '6', '*',
+      '1', '2', '3', '-',
+      '.', '0', '=', '+'
     ],
   },
 
@@ -21,16 +21,30 @@ Page({
     const k = event.target.dataset.key
     if (k === undefined) {
       return
+    } else {
+      this.handleKey(k)
     }
+  },
 
-    const o = Calculator.keyMap(k)
-    const calculator = this.data.calculator
-    calculator.execute(o)
+  handleKey: function(key) {
+    const o = Calculator.keyMap(key)
+    const { calculator, } = this.data
 
-    this.showData(o.name)
+    if (o.name == 'history') {
+      // wx.navigateTo({
+      //   url: '',
+      //   success: function(res) {},
+      //   fail: function(res) {},
+      //   complete: function(res) {},
+      // })
+    } else {
+      calculator.execute(o)
+      this.showData(o.name)
+    }
   },
 
   showData: function(name) {
+    // 渲染数据
     const calculator = this.data.calculator
 
     this.setData({
@@ -40,12 +54,13 @@ Page({
 
     if (name == 'equal') {
       this.setData({
-        history: calculator.history,
+        records: calculator.records,
       })
     }
   },
 
   onReady: function() {
+    // 初始化计算器
     const calculator = Calculator.instance()
     this.setData({ calculator, })
   },
