@@ -31,12 +31,9 @@ Page({
     const { calculator, } = this.data
 
     if (o.name == 'history') {
-      // wx.navigateTo({
-      //   url: '',
-      //   success: function(res) {},
-      //   fail: function(res) {},
-      //   complete: function(res) {},
-      // })
+      wx.navigateTo({
+        url: '../history/history',
+      })
     } else {
       calculator.execute(o)
       this.showData(o.name)
@@ -56,6 +53,8 @@ Page({
       this.setData({
         records: calculator.records,
       })
+      // 将历史记录保存到本地
+      wx.setStorageSync('records', calculator.records)
     }
   },
 

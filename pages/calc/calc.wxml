@@ -13,10 +13,4 @@
       <button wx:for="{{keyboards}}" wx:key="unique" data-key="{{item}}">{{item}}</button>
     </view>
   </view>
-  <view class='expression'>
-    <view wx:for="{{history}}" class='result' wx:key="unique" data-key="{{item}}">
-      <view>{{item.expression}}</view>
-      <view>{{item.result}}</view>
-    </view>
-  </view>
 </view>
