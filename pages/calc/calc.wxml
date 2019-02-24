@@ -10,7 +10,14 @@
   </view>
   <view class='elements'>
     <view class='cells' bindtap="onClick">
-      <button wx:for="{{keyboards}}" wx:key="unique" data-key="{{item}}">{{item}}</button>
+      <button
+        wx:for="{{keyboards}}"
+        wx:key="unique"
+        data-key="{{item}}"
+        class="{{item === '=' ? 'equal' : ''}}"
+      >
+        {{item}}
+      </button>
     </view>
   </view>
 </view>

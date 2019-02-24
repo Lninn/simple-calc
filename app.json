@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/calc/calc",
-    "pages/history/history",
     "pages/index/index",
+    "pages/history/history",
     "pages/logs/logs"
   ],
   "window": {

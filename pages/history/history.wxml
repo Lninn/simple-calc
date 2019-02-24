@@ -1,7 +1,7 @@
 <!--pages/history/history.wxml-->
 <view class='container'>
-  <view wx:for="{{records}}" wx:key="unique">
-    <view>{{item.expression}}</view>
-    <view>{{item.result}}</view>
+  <view wx:for="{{records}}" wx:key="unique" class='record'>
+    <text class='exp'>{{item.expression}}</text>
+    <text class='result'>{{item.result}}</text>
   </view>
 </view>
