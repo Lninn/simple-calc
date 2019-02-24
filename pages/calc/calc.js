@@ -6,7 +6,6 @@ Page({
   data: {
     calculator: null,
     showText: '',
-    records: [],
     result: 0,
     keyboards: [
       'CE', 'AC', 'X', 'H',
@@ -42,19 +41,17 @@ Page({
 
   showData: function(name) {
     // 渲染数据
-    const calculator = this.data.calculator
+    const { result, showText, records, } = this.data.calculator
+    const t = showText.split('').join(' ')
 
     this.setData({
-      result: calculator.result,
-      showText: calculator.showText,
+      result,
+      showText: t,
     })
 
     if (name == 'equal') {
-      this.setData({
-        records: calculator.records,
-      })
       // 将历史记录保存到本地
-      wx.setStorageSync('records', calculator.records)
+      wx.setStorageSync('records', records)
     }
   },
 
