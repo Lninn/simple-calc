@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       records: (wx.getStorageSync('records') || []).map(function ({result, expression}) {
-        return { result, expression: expression.split('').join(' '), }
+        return { result, expression, }
       })
     })
   },

@@ -18,20 +18,20 @@
 .screen .expression, .screen .result {
   display: flex;
   justify-content: flex-end;
-  padding-top: 10px;
-  padding-right: 10px;
+  padding: 10px;
 }
 
 .screen .expression {
-  height: 1rem;
+  min-height: 2rem;
 }
 
 .screen .result {
-  padding-top: 15px;
+  padding: 0;
+  padding-right: 10px;
 }
 
 .screen .expression text {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 .screen .result text {

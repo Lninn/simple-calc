@@ -35,14 +35,18 @@ class Calculator {
   }
 
   setup() {
-    this.showText = ''
+    this.expression = ''
     this.result = 0
     this.list = []
     this.isNumber = true
+
+    this.oldResult = 0
+    this.oldExp = ''
   }
 
-  execute(method) {
-    this[method.name](method.key)
+  execute({ name, key, }) {
+    this[name](key)
+    this.history(name)
   }
 
   number(key) {
@@ -79,32 +83,29 @@ class Calculator {
   }
 
   operator(key) {
-    let { list, result, showText, isNumber, } = this
+    let { list, result, expression, isNumber, } = this
 
     if (isNumber || list.length == 0) {
       this.calc(key)
     } else {
       // 更改运算符
       list[1] = key
-      showText = showText.replace(/[+|\-|*|\/]$/, key)
+      expression = expression.replace(/[+|\-|*|\/]$/, key)
 
       this.list = list
-      this.showText = showText
+      this.expression = expression
     }
   }
 
   equal() {
-    let { list, isNumber, showText, } = this
+    // 保存上一次的结果
+    this.oldResult = this.result
+    this.oldExp = this.expression
+
+    let { list, isNumber, expression, } = this
     if (list.length == 2 && isNumber) {
-      const t = this.result
       this.result = this.getResult()
-      // log(this.result)
-      // 添加记录
-      this.records.push({
-        result: this.result,
-        expression: `${showText}${t}`,
-      })
-      this.showText = ''
+      this.expression = ''
       this.list = []
     }
 
@@ -115,22 +116,31 @@ class Calculator {
     this.setup()
   }
 
-  history() {}
+  history(name) {
+    const { oldExp, result, oldResult, records, } = this
+
+    if (name == 'equal' && oldExp != '') {
+      records.push({
+        result: result,
+        expression: `${this.formatExpression(oldExp)}${oldResult}`,
+      })
+    }
+  }
 
   calc(key) {
-    let { list, result, showText, } = this
+    let { list, result, expression, } = this
     let text = ''
     let r = Number(result)
 
     if (this.list.length == 2) {
       r = this.getResult()
-      text = `${showText}${result}${key}`
+      text = `${expression}${result}${key}`
     } else {
       text = `${result}${key}`
     }
 
     this.result = r
-    this.showText = text
+    this.expression = text
     list[0] = r
     list[1] = key
     this.list = list
@@ -150,13 +160,25 @@ class Calculator {
     } else if (operator == '*') {
       r = Number(operands) * Number(result)
     } else if (operator == '/') {
-      r = Number(operands) / Number(result)
-      if (String(r).split('.')[1].length >= 15) {
-        r = r.toFixed(15)
+      r = String(Number(operands) / Number(result))
+      if (r.indexOf('.') > 0 && r.split('.')[1].length >= 15) {
+        r = Number(r).toFixed(15)
       }
     }
 
     return r
+  }
+
+  formatExpression(exp = this.exp) {
+    return String(exp).split(/([+\-*\/])/).join(' ')
+  }
+
+  getData() {
+    return {
+      result: this.result,
+      expression: this.formatExpression(this.expression),
+      records: this.records,
+    }
   }
 }
 

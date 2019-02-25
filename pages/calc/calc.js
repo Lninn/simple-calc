@@ -14,6 +14,7 @@ Page({
       '1', '2', '3', '+',
       '.', '0', 'H', '='
     ],
+    recordName: 'records',
   },
 
   onClick: function (event) {
@@ -41,17 +42,13 @@ Page({
 
   showData: function(name) {
     // 渲染数据
-    const { result, showText, records, } = this.data.calculator
-    const t = showText.split('').join(' ')
+    const { result, expression, records, } = this.data.calculator.getData()
 
-    this.setData({
-      result,
-      expression: t,
-    })
+    this.setData({ result, expression, })
 
     if (name == 'equal') {
       // 将历史记录保存到本地
-      wx.setStorageSync('records', records)
+      wx.setStorageSync(this.data.recordName, records)
     }
   },
 
