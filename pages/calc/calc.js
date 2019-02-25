@@ -14,7 +14,8 @@ Page({
       '1', '2', '3', '+',
       '.', '0', 'H', '='
     ],
-    recordName: 'records',
+    recordName: 'RECORDS',
+    currentRecord: 'CURRENT_RECORD',
   },
 
   onClick: function (event) {
@@ -52,19 +53,6 @@ Page({
     }
   },
 
-  onReady: function() {
-    const options = this.options
-    const keys = Object.keys(options || {})
-    if (keys != 0) {
-      this.data.calculator.setData({
-        expression: options.expression,
-        result: options.result,
-      })
-
-      this.showData()
-    }
-  },
-
   onLoad: function() {
     // 初始化计算器
     const { calculator, } = this.data
@@ -72,6 +60,18 @@ Page({
     if (!calculator) {
       const calculator = Calculator.instance()
       this.setData({ calculator, })
+    }
+  },
+
+  onShow: function() {
+    const record = wx.getStorageSync(this.data.currentRecord) || {}
+    if (Object.keys(record).length > 0) {
+      this.data.calculator.setData({
+        expression: record.expression,
+        result: record.result,
+      })
+
+      this.showData()
     }
   }
 })
