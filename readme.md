@@ -4,4 +4,4 @@
 
 ## 项目截图
 
-![title](screenshot/screenshot1.jpg) ![editor](screenshot/screenshot2.jpg)
+![title](screenshot/screenshot1.png) ![editor](screenshot/screenshot2.png)
