@@ -151,6 +151,9 @@ class Calculator {
       r = Number(operands) * Number(result)
     } else if (operator == '/') {
       r = Number(operands) / Number(result)
+      if (String(r).split('.')[1].length >= 15) {
+        r = r.toFixed(15)
+      }
     }
 
     return r

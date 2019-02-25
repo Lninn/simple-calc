@@ -5,14 +5,14 @@ const log = console.log.bind(console)
 Page({
   data: {
     calculator: null,
-    showText: '',
+    expression: '',
     result: 0,
     keyboards: [
-      'CE', 'AC', 'X', 'H',
-      '7', '8', '9', '/',
-      '4', '5', '6', '*',
-      '1', '2', '3', '-',
-      '.', '0', '=', '+'
+      'CE', 'AC', 'X', '/',
+      '7', '8', '9', '*',
+      '4', '5', '6', '-',
+      '1', '2', '3', '+',
+      '.', '0', 'H', '='
     ],
   },
 
@@ -46,7 +46,7 @@ Page({
 
     this.setData({
       result,
-      showText: t,
+      expression: t,
     })
 
     if (name == 'equal') {

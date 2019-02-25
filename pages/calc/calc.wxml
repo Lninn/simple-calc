@@ -1,12 +1,13 @@
 <!--pages/calc/calc.wxml-->
 <view class="container">
   <view class='screen'>
-     <view class="history">
-      <text>{{showText}}</text>
+     <view class="expression">
+      <text>{{expression}}</text>
     </view>
      <view class="result">
       <text>{{result}}</text>
     </view>
+    <!-- <button class='history'>.</button> -->
   </view>
   <view class='elements' bindtap="onClick">
     <button

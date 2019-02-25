@@ -6,22 +6,23 @@
   background-color: #15141a;
 }
 
-/* 结果界面 */
+/* 显示界面 */
 .screen {
   flex: 1;
   width: 100vw;
   margin-bottom: 2px;
   color:#eef7f2;
+  position: relative;
 }
 
-.screen .history, .screen .result {
+.screen .expression, .screen .result {
   display: flex;
   justify-content: flex-end;
   padding-top: 10px;
   padding-right: 10px;
 }
 
-.screen .history {
+.screen .expression {
   height: 1rem;
 }
 
@@ -29,7 +30,7 @@
   padding-top: 15px;
 }
 
-.screen .history text {
+.screen .expression text {
   font-size: 1.3em;
 }
 
@@ -37,18 +38,35 @@
   font-size: 2em;
 }
 
+/* .screen .history {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: #fff;
+  background:#000;
+  text-align: center;
+  line-height: 30px;
+}
+
+.screen .history:active{
+  color:#ccc;
+  background:#333;
+  text-shadow: 0 0 1px #666;
+  box-shadow:0 0 4px #f5f5f5 inset;
+} */
+
 /* 界面图标 */
 .elements {
   display: flex;
-  flex-direction: row;
-  flex: 1;
   flex-flow: row wrap;
-  align-content: flex-end;
   box-sizing: border-box;
 }
 
-button {
-  flex: 0 0 25%;
+.elements button {
+  flex-basis: 25%;
   background-color: #28282b;
   color:#eef7f2;
   box-sizing: border-box;
@@ -58,6 +76,10 @@ button {
   margin-bottom: 2px;
 }
 
-.equal {
+.elements button:active {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.elements .equal {
   background-color: #44B549;
 }
