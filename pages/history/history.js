@@ -33,4 +33,10 @@ Page({
       })
     }
   },
+
+  clearRecord: function() {
+    wx.setStorageSync(this.data.recordName, [])
+
+    this.setData({ records: [], })
+  }
 })

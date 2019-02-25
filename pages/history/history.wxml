@@ -1,5 +1,8 @@
 <!--pages/history/history.wxml-->
 <view class='container'>
+  <view class='control'>
+    <button bindtap='clearRecord'>Clear All</button>
+  </view>
   <view wx:for="{{records}}" wx:key="unique" class='record' data-record='{{item}}' bindtap='handleClick'>
     <text class='exp'>{{item.expression}}</text>
     <text class='result'>{{item.result}}</text>

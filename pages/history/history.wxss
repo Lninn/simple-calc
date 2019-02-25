@@ -30,3 +30,19 @@
   font-weight: bold;
   font-size: 20px;
 }
+
+.control {
+    width: 100vw;
+    padding: 10px 0;
+}
+
+.control button {
+  width: 45%;
+  background-color: #28282b;
+  color:#eef7f2;
+  font-size:  14px;
+}
+
+.control button:active {
+  background-color: rgba(0, 0, 0, 0.3);
+}
