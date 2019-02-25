@@ -8,16 +8,14 @@
       <text>{{result}}</text>
     </view>
   </view>
-  <view class='elements'>
-    <view class='cells' bindtap="onClick">
-      <button
-        wx:for="{{keyboards}}"
-        wx:key="unique"
-        data-key="{{item}}"
-        class="{{item === '=' ? 'equal' : ''}}"
-      >
-        {{item}}
-      </button>
-    </view>
+  <view class='elements' bindtap="onClick">
+    <button
+      wx:for="{{keyboards}}"
+      wx:key="unique"
+      data-key="{{item}}"
+      class="{{item === '=' ? 'equal' : ''}}"
+    >
+      {{item}}
+    </button>
   </view>
 </view>

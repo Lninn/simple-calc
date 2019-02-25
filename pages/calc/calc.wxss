@@ -41,10 +41,14 @@
 .elements {
   display: flex;
   flex-direction: row;
+  flex: 1;
+  flex-flow: row wrap;
+  align-content: flex-end;
   box-sizing: border-box;
 }
 
 button {
+  flex: 0 0 25%;
   background-color: #28282b;
   color:#eef7f2;
   box-sizing: border-box;
@@ -52,17 +56,6 @@ button {
   vertical-align: middle;
   font-size: 1.5em;
   margin-bottom: 2px;
-}
-
-.cells {
-  display: flex;
-  flex: 1;
-  flex-flow: row wrap;
-  align-content: flex-end;
-}
-
-.cells button {
-  flex: 0 0 25%;
 }
 
 .equal {
