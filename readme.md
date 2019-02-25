@@ -4,4 +4,4 @@
 
 ## 项目截图
 
-![title](screenshot/screenshot1.png) ![editor](screenshot/screenshot2.png =428x642)
+<img src="screenshot/screenshot1.png" width="428" hegiht="642"/> <img src="screenshot/screenshot2.png" width="428" hegiht="642"/>
