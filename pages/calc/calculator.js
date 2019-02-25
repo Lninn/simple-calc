@@ -74,6 +74,10 @@ class Calculator {
   }
 
   backspace() {
+    if (!this.isNumber) {
+      return
+    }
+
     let result = Number(this.result)
     result = Math.floor(result / 10)
     if (result < 1) {
@@ -163,7 +167,7 @@ class Calculator {
     } else if (operator == '/') {
       r = String(Number(operands) / Number(result))
       if (r.indexOf('.') > 0 && r.split('.')[1].length >= 15) {
-        r = Number(r).toFixed(15)
+        r = Number(r).toFixed(14)
       }
     }
 

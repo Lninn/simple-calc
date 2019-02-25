@@ -54,6 +54,7 @@ Page({
   },
 
   onLoad: function() {
+
     // 初始化计算器
     const { calculator, } = this.data
 
@@ -73,5 +74,9 @@ Page({
 
       this.showData()
     }
+  },
+
+  onHide: function() {
+    wx.setStorageSync(this.data.currentRecord, {})
   }
 })
