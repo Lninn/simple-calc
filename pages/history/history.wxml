@@ -1,6 +1,6 @@
 <!--pages/history/history.wxml-->
 <view class='container'>
-  <view wx:for="{{records}}" wx:key="unique" class='record'>
+  <view wx:for="{{records}}" wx:key="unique" class='record' data-record='{{item}}' bindtap='handleClick'>
     <text class='exp'>{{item.expression}}</text>
     <text class='result'>{{item.result}}</text>
   </view>

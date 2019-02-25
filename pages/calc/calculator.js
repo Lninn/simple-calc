@@ -1,4 +1,5 @@
 const log = console.log.bind(console)
+const utils = require('../../utils/util.js')
 
 class Calculator {
   constructor() {
@@ -122,7 +123,7 @@ class Calculator {
     if (name == 'equal' && oldExp != '') {
       records.push({
         result: result,
-        expression: `${this.formatExpression(oldExp)}${oldResult}`,
+        expression: `${oldExp}${oldResult}`,
       })
     }
   }
@@ -169,16 +170,17 @@ class Calculator {
     return r
   }
 
-  formatExpression(exp = this.exp) {
-    return String(exp).split(/([+\-*\/])/).join(' ')
-  }
-
   getData() {
     return {
       result: this.result,
-      expression: this.formatExpression(this.expression),
+      expression: utils.formatExpression(this.expression),
       records: this.records,
     }
+  }
+
+  setData({ expression, result,}) {
+    this.expression = expression
+    this.result = result
   }
 }
 

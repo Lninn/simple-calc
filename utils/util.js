@@ -14,6 +14,11 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const formatExpression = function(exp) {
+  return String(exp).split(/([+\-*\/])/).join(' ')
+}
+
 module.exports = {
   formatTime,
+  formatExpression,
 }

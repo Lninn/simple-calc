@@ -53,8 +53,25 @@ Page({
   },
 
   onReady: function() {
-    // 初始化计算器
-    const calculator = Calculator.instance()
-    this.setData({ calculator, })
+    const options = this.options
+    const keys = Object.keys(options || {})
+    if (keys != 0) {
+      this.data.calculator.setData({
+        expression: options.expression,
+        result: options.result,
+      })
+
+      this.showData()
+    }
   },
+
+  onLoad: function() {
+    // 初始化计算器
+    const { calculator, } = this.data
+
+    if (!calculator) {
+      const calculator = Calculator.instance()
+      this.setData({ calculator, })
+    }
+  }
 })
